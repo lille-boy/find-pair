@@ -35,7 +35,7 @@ void sort_array(int *array, unsigned int size)
 }
 
 /******************************************************************************
- * Checks if the input character is numerical
+ * Check if the input character is numerical
  * Returns 1 if numerical, 0 otherwise
  *****************************************************************************/
 static int is_numerical(char number)
@@ -48,7 +48,7 @@ static int is_numerical(char number)
 }
 
 /******************************************************************************
- * Returns the number of numerical elements in the user input
+ * Return the number of numerical elements in the user input
  *****************************************************************************/
 unsigned int input_size(const char *input)
 {
@@ -64,7 +64,7 @@ unsigned int input_size(const char *input)
 }
 
 /******************************************************************************
- *
+ * Convert input string into an array
  *****************************************************************************/
 void unpack_input(const char *input_array, int *array)
 {
@@ -80,7 +80,7 @@ void unpack_input(const char *input_array, int *array)
 }
 
 /******************************************************************************
- *
+ * Find pairs and display them
  *****************************************************************************/
 void find_pair(const char *input_array, const char *input_sum)
 {
@@ -90,19 +90,24 @@ void find_pair(const char *input_array, const char *input_sum)
     unsigned int high = size - 1;
 
     int *array = (int *)malloc(size * sizeof(int));
-    unpack_input(input_array, array);
 
-    sort_array(array, size);
+    if (array != NULL) {
+        unpack_input(input_array, array);
 
-    while (low != high) {
-        if ((array[low] + array[high]) < sum) {
-            low++;
-        }
-        else {
-            if ((array[low] + array[high]) == sum) {
-                printf("%d + %d = %d\n", array[low], array[high], sum);
+        sort_array(array, size);
+
+        while (low != high) {
+            if ((array[low] + array[high]) < sum) {
+                low++;
             }
-            high--;
+            else {
+                if ((array[low] + array[high]) == sum) {
+                    printf("%d + %d = %d\n", array[low], array[high], sum);
+                }
+                high--;
+            }
         }
+
+        free(array);
     }
 }
